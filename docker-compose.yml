@@ -5,12 +5,12 @@ services:
     image: postgres:13
     environment:
       - POSTGRES_DB=DisneyPerson
-      - POSTGRES_USER=Rodrigo
+      - POSTGRES_USER=44345610
       - POSTGRES_PASSWORD=16082002Ro
     ports:
       - 5432:5432
     volumes:
-      - ./usr/local/pgsql-13
+      - ./postgres_data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
@@ -19,23 +19,3 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
       - 5050:80
-
-  mysql:
-    image: mysql:5
-    environment:
-      - MYSQL_DATABASE=DisneyPerson
-      - MYSQL_USER=root
-      - MYSQL_ROOT_PASSWORD=16082002Ro
-      - MYSQL_PORT=3309
-    ports:
-      - 3306:3306
-    volumes:
-      - ./mysql_data:/var/lib/mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      - MYSQL_ROOT_PASSWORD=16082002Ro
-      - PMA_HOST=mysql
-    ports:
-      - 8080:80

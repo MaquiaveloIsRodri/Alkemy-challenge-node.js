@@ -6,7 +6,7 @@ const characters = require('./characters.router');
 function routerApi(app) {
   const router = express.Router();
   app.use('/api/v1', router);
-  router.use('/characters', characters);
+  router.use('/', characters);
 }
 
 module.exports = routerApi;
