@@ -6,3 +6,5 @@ class CharacterMovie {
     return newCharacter;
   }
 }
+
+module.exports = CharacterMovie;

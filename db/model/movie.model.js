@@ -28,18 +28,12 @@ const MovieSchema = {
   idCharacter: {
     field: 'id-character',
     allowNull: false,
-    type: DataTypes.STRING
+    type: DataTypes.INTEGER
   }
 }
 
 class Movie extends Model {
-  static associate(models) {
-    this.belongsToMany(models.movie, {
-      as: 'ItemMovie',
-      through: models.MovieCharacter,
-      foreignKey: 'idMovie',
-      otherKey: 'idCharacter'
-    })
+  static associate() {
   }
   static config(sequelize) {
     return {

@@ -30,6 +30,12 @@ updateCharacter = Joi.object({
   movieId: movieId
 })
 
+DeleteCharacter = Joi.object({
+  id: id.required()
+})
+
+
+
 
 
 
