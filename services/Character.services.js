@@ -1,50 +1,57 @@
 const { models } = require("../libs/sequelize");
 const boom = require("boom");
+const { string, number } = require("joi");
 
 class Character {
   constructor() { }
 
+  async createCharacterMovie(data) {
+    const newCharacter = await models.MovieCharacter.create(data);
+    return newCharacter;
+  }
+
   async characterList() {
-    const rta = models.Character.findAll()
+    const rta = models.Character.findAll({
+      include: ['MainCharacter']
+    })
     return rta;
   }
 
   async imageNameCharacter() {
-    const characterList = this.characterList();
-    const rtaNameCharacter = await characterList.map(item = () => {
-      const name = item.name;
-      const image = item.image;
-      return { name, image }
+    const listCharacter = models.Character.findAll({
+      attributes: [
+        'id',
+        'Image',
+        'Name'
+      ]
     })
-    return rtaNameCharacter
+    return listCharacter;
   }
 
-  async findOneCharacter(id) {
-    const rta = models.Character.findByPk(id, {
-      include: ['MovieCharacter']
-    })
-    if (!rta) {
-      throw boom.notFound('Character not found');
+  async searchCharacter(data) {
+    if (typeof (data) != string) {
+      const charactersAge = models.Character.findAll({
+        include: ['MainCharacter'],
+        where: {
+          age: age
+        }
+      })
+      return charactersAge
     }
-    return rta;
-  }
 
-  async searchCharacterName(name) {
-    const charactersName = models.Character.findAll({
-      where: {
-        name: name
-      }
-    })
-    return charactersName
-  }
+    if (typeof (data) != number) {
+      const charactersName = models.Character.findAll({
+        include: ['MainCharacter'],
+        where: {
+          name: data
+        }
+      })
+      return charactersName
+    }
 
-  async searchCharacterAge(age) {
-    const charactersAge = models.Character.findAll({
-      where: {
-        age: age
-      }
-    })
-    return charactersAge
+    if (typeof (data) != string && typeof (data) != number) {
+      boom.badRequest('Parameter is not fount')
+    }
   }
 
   async searchIdMovie(idMovie) {
@@ -54,6 +61,9 @@ class Character {
         idMovie: idMovie
       }
     })
+    if (!charactersMovie) {
+      boom.badRequest('Parameter is not fount')
+    }
     return charactersMovie
   }
 

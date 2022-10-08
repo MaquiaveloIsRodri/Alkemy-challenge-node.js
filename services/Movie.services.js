@@ -1,4 +1,7 @@
-class movies {
+const { models } = require("../libs/sequelize");
+const { isBoom } = require('boom');
+const boom = require('boom');
+class Movies {
   constructor() { }
 
   async createMovies(data) {
@@ -20,6 +23,27 @@ class movies {
       return { image, title, creationDate }
     })
     return rtaNameMovies
+  }
+
+  async searchMovieTitle(title) {
+    const movieTitle = models.Movies.findAll({
+      include: ['MainCharacter'],
+      where: {
+        title: title
+      }
+    })
+    return movieTitle
+  }
+
+  async searchMovieOfOrder(order) {
+    if (order != ASC && order != DESC) {
+      throw isBoom("You put a command that doesn't exist, just ASC || DESC'");
+    }
+    const movieTitle = models.Movies.findAll({
+      include: ['MainCharacter'],
+      order: order
+    })
+    return movieTitle
   }
 
   async findOneMovies(id) {
@@ -47,4 +71,4 @@ class movies {
 
 }
 
-module.exports = Character;
+module.exports = Movies;

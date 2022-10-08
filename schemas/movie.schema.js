@@ -5,7 +5,7 @@ image = Joi.string();
 title = Joi.string().max(30);
 creationDate = Joi.date();
 Qualification = Joi.number().integer().min(1).max(5);
-idCharacter = Joi.number().integer();
+GenderId = Joi.number().integer();
 
 getCharacter = Joi.object({
   id: id.required()
@@ -16,7 +16,7 @@ createCharacter = Joi.object({
   title: title.required(),
   creationDate: creationDate.required(),
   Qualification: Qualification.required(),
-  idCharacter: idCharacter
+  GenderId: GenderId.required()
 })
 
 updateCharacter = Joi.object({
@@ -24,7 +24,7 @@ updateCharacter = Joi.object({
   title: title,
   creationDate: creationDate,
   Qualification: Qualification,
-  idCharacter: idCharacter,
+  GenderId: GenderId,
 })
 
 DeleteCharacter = Joi.object({

@@ -6,10 +6,22 @@ Name = Joi.string().max(30);
 Age = Joi.number().integer();
 Weight = Joi.number().integer();
 history = Joi.string().min(10).max(280);
-movieId = Joi.number().integer();
+MainCharacter = Joi.number().integer();
 
 getCharacter = Joi.object({
   id: id.required()
+})
+
+getCharacterName = Joi.object({
+  Name: Name.required()
+})
+
+getCharacterAge = Joi.object({
+  Age: Age.required()
+})
+
+getCharacterIdMovie = Joi.object({
+  MainCharacter: MainCharacter.required()
 })
 
 createCharacter = Joi.object({
@@ -18,7 +30,7 @@ createCharacter = Joi.object({
   Age: Age,
   Weight: Weight,
   history: history.required(),
-  movieId: movieId.required()
+  MainCharacter: MainCharacter.required()
 })
 
 updateCharacter = Joi.object({
@@ -27,15 +39,11 @@ updateCharacter = Joi.object({
   Age: Age,
   Weight: Weight,
   history: history,
-  movieId: movieId
-})
-
-DeleteCharacter = Joi.object({
-  id: id.required()
+  MainCharacter: MainCharacter
 })
 
 
-
+module.exports = { getCharacter, createCharacter, updateCharacter, getCharacterName, getCharacterAge, getCharacterIdMovie };
 
 
 
